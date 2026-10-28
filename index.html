@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b3a5c">
+  <title>Hoana | Pequeños lugares, grandes espacios</title>
+  <!-- Ícono de la pestaña: utiliza el logo que está junto a este archivo. -->
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    /* 1. Colores y estilos generales */
+    :root {
+      --color-principal: #f5eddc;
+      --color-secundario: #1b3a5c;
+      --color-acento: #C8A868;
+      --color-texto: #1b3a5c;
+      --color-fondo: #f5eddc;
+      --blanco: #fffdf8;
+      --sombra: 0 10px 28px rgba(27, 58, 92, 0.12);
+      --radio: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    .contenedor { width: min(1100px, 90%); margin: 0 auto; }
+    .seccion { padding: 76px 0; }
+    .titulo-seccion {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.2;
+    }
+    .subtitulo { margin: 0 0 32px; max-width: 700px; }
+    .etiqueta {
+      display: inline-block;
+      color: var(--color-secundario);
+      background: rgba(200, 168, 104, 0.25);
+      border: 1px solid var(--color-acento);
+      border-radius: 999px;
+      padding: 5px 13px;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .boton {
+      display: inline-block;
+      border: 2px solid var(--color-secundario);
+      border-radius: 999px;
+      padding: 12px 22px;
+      background: var(--color-secundario);
+      color: var(--color-principal);
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+    .boton:hover { transform: translateY(-2px); background: transparent; color: var(--color-secundario); }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--color-acento);
+      outline-offset: 3px;
+    }
+
+    /* 2. Encabezado y menú fijo */
+    .encabezado {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      background: var(--color-principal);
+      border-bottom: 1px solid rgba(27, 58, 92, .15);
+      box-shadow: 0 4px 16px rgba(27, 58, 92, .06);
+    }
+    .barra-navegacion {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .marca {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--color-secundario);
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+    .marca img { width: 48px; height: 48px; object-fit: contain; }
+    .menu { display: flex; align-items: center; gap: 22px; }
+    .menu a {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .menu a:hover { border-bottom-color: var(--color-acento); }
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--color-secundario);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--color-secundario);
+      padding: 8px 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* 3. Inicio */
+    .inicio {
+      min-height: 88vh;
+      padding: 140px 0 76px;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(200, 168, 104, .25), transparent 28%),
+        var(--color-principal);
+    }
+    .inicio-contenido {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 54px;
+    }
+    .inicio h1 {
+      margin: 18px 0 8px;
+      font-size: clamp(3rem, 8vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.04em;
+    }
+    .eslogan { margin: 0 0 18px; font-size: clamp(1.2rem, 3vw, 1.7rem); font-weight: 700; }
+    .inicio-descripcion { max-width: 530px; margin: 0 0 28px; }
+    .logo-destacado {
+      min-height: 310px;
+      display: grid;
+      place-items: center;
+      padding: 35px;
+      border: 1px solid rgba(200, 168, 104, .7);
+      border-radius: 36px;
+      background: rgba(255, 253, 248, .55);
+    }
+    .logo-destacado img { width: min(100%, 340px); max-height: 300px; object-fit: contain; }
+
+    /* 4. Sobre la empresa */
+    .sobre { background: var(--blanco); }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .tarjeta-info {
+      padding: 23px;
+      border: 1px solid rgba(27, 58, 92, .12);
+      border-radius: var(--radio);
+      background: var(--color-principal);
+    }
+    .tarjeta-info h3 { margin: 0 0 8px; font-size: 1.08rem; }
+    .tarjeta-info p { margin: 0; }
+    .integrantes { margin-top: 18px; border-left: 4px solid var(--color-acento); }
+
+    /* 5. Catálogo de productos */
+    .catalogo { background: var(--color-principal); }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+    }
+    .producto {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--blanco);
+      border: 1px solid rgba(27, 58, 92, .13);
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+    }
+    .producto-foto {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #e9dfcc;
+    }
+    .producto-contenido { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+    .producto h3 { margin: 0 0 10px; font-size: 1.35rem; }
+    .producto p { margin: 0 0 20px; }
+    .precio {
+      margin-top: auto;
+      color: var(--color-secundario);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .nota-precio { font-size: .82rem; font-weight: 400; }
+
+    /* 6. Contacto y formulario */
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 42px;
+      align-items: start;
+    }
+    .datos-contacto {
+      padding: 25px;
+      background: var(--color-principal);
+      border-radius: var(--radio);
+      border: 1px solid rgba(27, 58, 92, .13);
+    }
+    .datos-contacto h3 { margin-top: 0; }
+    .correo { overflow-wrap: anywhere; font-weight: 700; }
+    .formulario {
+      padding: 27px;
+      background: var(--blanco);
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+    }
+    .campo { margin-bottom: 17px; }
+    .campo label { display: block; margin-bottom: 6px; font-weight: 700; }
+    .campo input, .campo textarea {
+      width: 100%;
+      border: 1px solid #8b9aaa;
+      border-radius: 10px;
+      padding: 12px 13px;
+      color: var(--color-secundario);
+      background: #fff;
+      font: inherit;
+    }
+    .campo textarea { min-height: 130px; resize: vertical; }
+    .mensaje-formulario { margin: 15px 0 0; font-weight: 700; }
+    .mensaje-formulario.exito { color: #17633b; }
+    .mensaje-formulario.error { color: #9d2525; }
+
+    /* 7. Pie de página */
+    .pie {
+      padding: 22px 0;
+      color: var(--color-principal);
+      background: var(--color-secundario);
+      text-align: center;
+    }
+    .pie p { margin: 0; }
+
+    /* 8. Ajustes para pantallas pequeñas */
+    @media (max-width: 760px) {
+      .barra-navegacion { min-height: 68px; }
+      .menu-toggle { display: inline-block; }
+      .menu {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        padding: 12px 5% 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+        background: var(--color-principal);
+        border-bottom: 1px solid rgba(27, 58, 92, .15);
+      }
+      .menu.abierto { display: flex; }
+      .menu a { padding: 10px 0; }
+      .inicio { min-height: auto; padding: 115px 0 60px; }
+      .inicio-contenido, .contacto-grid { grid-template-columns: 1fr; gap: 30px; }
+      .logo-destacado { min-height: 230px; }
+      .logo-destacado img { max-height: 220px; }
+      .seccion { padding: 58px 0; }
+    }
+    @media (max-width: 560px) {
+      .sobre-grid, .productos { grid-template-columns: 1fr; }
+      .producto-contenido, .formulario { padding: 21px; }
+      .inicio h1 { font-size: clamp(3rem, 18vw, 4.5rem); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado con navegación fija -->
+  <header class="encabezado">
+    <div class="contenedor barra-navegacion">
+      <a class="marca" href="#inicio" aria-label="Hoana, ir al inicio">
+        <img src="logo.png" alt="Logo de Hoana">
+        <span>Hoana</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button>
+      <nav class="menu" id="menu-principal" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre">Sobre la empresa</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Sección 1: Inicio -->
+    <section class="inicio" id="inicio">
+      <div class="contenedor inicio-contenido">
+        <div>
+          <span class="etiqueta">Feria ROBOTEC · San Diego Bilingual High School</span>
+          <h1>Hoana</h1>
+          <p class="eslogan">Pequeños lugares, grandes espacios</p>
+          <p class="inicio-descripcion">Accesorios para mascotas y juegos de mesa diseñados para acompañar la vida cotidiana, decorar el hogar y compartir buenos momentos.</p>
+          <a class="boton" href="#catalogo">Explorar catálogo</a>
+        </div>
+        <div class="logo-destacado">
+          <img src="logo.png" alt="Logo de la empresa Hoana">
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: Información de la empresa -->
+    <section class="seccion sobre" id="sobre">
+      <div class="contenedor">
+        <span class="etiqueta">Conoce Hoana</span>
+        <h2 class="titulo-seccion">Sobre la empresa</h2>
+        <p class="subtitulo">Creamos productos que combinan utilidad, diseño y momentos para compartir.</p>
+        <div class="sobre-grid">
+          <article class="tarjeta-info">
+            <h3>¿Quiénes somos?</h3>
+            <p>Hoana es una empresa estudiantil que presenta sus productos en la Feria ROBOTEC de San Diego Bilingual High School.</p>
+          </article>
+          <article class="tarjeta-info">
+            <h3>Eje temático</h3>
+            <p>Nuestro eje temático es la cortadora láser, una tecnología que permite elaborar diseños con precisión.</p>
+          </article>
+          <article class="tarjeta-info">
+            <h3>Enfoque o nicho</h3>
+            <p>Nos enfocamos en accesorios para mascotas y juegos de mesa.</p>
+          </article>
+          <article class="tarjeta-info">
+            <h3>Cliente objetivo</h3>
+            <p>Nuestros clientes objetivo son personas adultas. Algunos productos están pensados para complementar la decoración del hogar.</p>
+          </article>
+          <article class="tarjeta-info">
+            <h3>Propuesta de valor</h3>
+            <p>Nuestros productos buscan facilitar la vida cotidiana, brindar mayor seguridad a las mascotas y crear buenos momentos en familia o entre personas.</p>
+          </article>
+          <article class="tarjeta-info integrantes">
+            <h3>Integrantes y roles</h3>
+            <p><strong>Ahilyn:</strong> líder del grupo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3: Catálogo de productos -->
+    <section class="seccion catalogo" id="catalogo">
+      <div class="contenedor">
+        <span class="etiqueta">Nuestros productos</span>
+        <h2 class="titulo-seccion">Catálogo</h2>
+        <p class="subtitulo">Conoce los productos de Hoana.</p>
+        <div class="productos">
+          <article class="producto">
+            <img class="producto-foto" src="imagenes/producto1.jpg" alt="Placas de perro personalizadas" loading="lazy">
+            <div class="producto-contenido">
+              <h3>Placas de perro</h3>
+              <p>Placas para perro personalizadas elaboradas con tecnología láser, diseñadas para brindar una identificación clara, resistente y duradera para las mascotas.</p>
+              <div class="precio">₡1.500</div>
+            </div>
+          </article>
+          <article class="producto">
+            <img class="producto-foto" src="imagenes/producto2.jpg" alt="Juego de ajedrez elaborado con tecnología láser" loading="lazy">
+            <div class="producto-contenido">
+              <h3>Juegos de mesa</h3>
+              <p>Ajedrez elaborado con tecnología de impresión láser, diseñado y fabricado con precisión para obtener piezas uniformes, resistentes y de alta calidad.</p>
+              <div class="precio">₡4.000</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 4: Datos de contacto y formulario -->
+    <section class="seccion" id="contacto">
+      <div class="contenedor">
+        <span class="etiqueta">Hablemos</span>
+        <h2 class="titulo-seccion">Contacto</h2>
+        <p class="subtitulo">¿Tienes alguna consulta? Puedes escribirnos mediante el formulario.</p>
+        <div class="contacto-grid">
+          <div class="datos-contacto">
+            <h3>Información de contacto</h3>
+            <p><strong>Empresa:</strong> Hoana</p>
+            <p><strong>Correo electrónico:</strong><br>
+              <a class="correo" href="mailto:adormond@sdbhschool.net">adormond@sdbhschool.net</a>
+            </p>
+            <p><strong>Integrante:</strong> Ahilyn, líder del grupo</p>
+          </div>
+          <form class="formulario" id="formulario-contacto" novalidate>
+            <div class="campo">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="campo">
+              <label for="correo">Correo electrónico</label>
+              <input id="correo" name="correo" type="email" autocomplete="email" required>
+            </div>
+            <div class="campo">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" required></textarea>
+            </div>
+            <button class="boton" type="submit">Enviar mensaje</button>
+            <p class="mensaje-formulario" id="respuesta-formulario" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Hoana · Pequeños lugares, grandes espacios · Feria ROBOTEC</p>
+    </div>
+  </footer>
+
+  <script>
+    // Menú desplegable para celulares.
+    const botonMenu = document.querySelector('.menu-toggle');
+    const menuPrincipal = document.querySelector('#menu-principal');
+
+    botonMenu.addEventListener('click', () => {
+      const estaAbierto = menuPrincipal.classList.toggle('abierto');
+      botonMenu.setAttribute('aria-expanded', String(estaAbierto));
+      botonMenu.setAttribute('aria-label', estaAbierto ? 'Cerrar menú' : 'Abrir menú');
+      botonMenu.textContent = estaAbierto ? '×' : '☰';
+    });
+
+    // Cierra el menú móvil al seleccionar una sección.
+    menuPrincipal.querySelectorAll('a').forEach((enlace) => {
+      enlace.addEventListener('click', () => {
+        menuPrincipal.classList.remove('abierto');
+        botonMenu.setAttribute('aria-expanded', 'false');
+        botonMenu.setAttribute('aria-label', 'Abrir menú');
+        botonMenu.textContent = '☰';
+      });
+    });
+
+    // Valida los campos y muestra una confirmación en pantalla.
+    // Este formulario no envía correos: necesita conectarse a un servicio para hacerlo.
+    const formulario = document.querySelector('#formulario-contacto');
+    const respuestaFormulario = document.querySelector('#respuesta-formulario');
+
+    formulario.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+
+      const nombre = document.querySelector('#nombre').value.trim();
+      const correo = document.querySelector('#correo').value.trim();
+      const mensaje = document.querySelector('#mensaje').value.trim();
+      const formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!nombre || !correo || !mensaje) {
+        mostrarRespuesta('Por favor, completa todos los campos.', 'error');
+        return;
+      }
+
+      if (!formatoCorreo.test(correo)) {
+        mostrarRespuesta('Escribe un correo electrónico válido.', 'error');
+        return;
+      }
+
+      mostrarRespuesta(`¡Gracias, ${nombre}! El formulario se completó correctamente. Para enviar el mensaje, hace falta conectar el formulario a un servicio de correo.`, 'exito');
+      formulario.reset();
+    });
+
+    function mostrarRespuesta(texto, tipo) {
+      respuestaFormulario.textContent = texto;
+      respuestaFormulario.className = `mensaje-formulario ${tipo}`;
+    }
+  </script>
+</body>
+</html>
